@@ -1,0 +1,14 @@
+Help.
+
+Author: Ruslan Dolovanyuk.
+Version: 1.0.
+
+Keys:
+Escape - exit;
+F1 - help;
+F5 - new game;
+Space - open cell;
+F - set flag on cell;
+M - speak how not finded mines;
+T - speak timer in format (hours:minutes:seconds);
+C - speak coordinates in format (x; y);

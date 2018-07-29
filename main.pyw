@@ -62,7 +62,7 @@ class Game:
             self.handle_events()
             self.draw()
 
-            self.clock.tick(60)
+            self.clock.tick(15)
             pygame.display.flip()
 
         self.speech.speak(self.phrases['finish'])

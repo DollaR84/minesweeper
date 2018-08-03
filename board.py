@@ -58,7 +58,7 @@ class Board:
             cell.draw(self.board)
         for row in range(self.rows):
             for col in range(self.cols):
-                pygame.draw.rect(self.board, Colors.WHITE, (row*self.size_cell, col*self.size_cell, self.size_cell, self.size_cell), 1)
+                pygame.draw.rect(self.board, Colors.WHITE, (col*self.size_cell, row*self.size_cell, self.size_cell, self.size_cell), 1)
 
     def generate(self):
         """Generate objects cells."""
@@ -67,7 +67,7 @@ class Board:
 
         for row in range(self.rows):
             for col in range(self.cols):
-                self.cells.append(Cell(row*self.size_cell, col*self.size_cell, self.size_cell))
+                self.cells.append(Cell(col*self.size_cell, row*self.size_cell, self.size_cell))
 
         mines = set()
         random.seed()

@@ -1,5 +1,5 @@
 """
-Main module for running sapper game.
+Main module for running minesweeper game.
 
 Created on 22.07.2018
 
@@ -9,6 +9,8 @@ Created on 22.07.2018
 
 import json
 import time
+import pickle
+
 import pygame
 
 from configparser import ConfigParser
@@ -54,6 +56,16 @@ class Game:
         pygame.time.set_timer(pygame.USEREVENT, 1000)
 
         self.new_game()
+        try:
+            save_file = open('autosave.dat', 'rb')
+        except IOError as e:
+            pass
+        else:
+            with save_file:
+                self.board.cells = pickle.load(save_file)
+                for cell in self.board.cells:
+                    cell.status = 0 if 9 != cell.status else cell.status
+                self.board.calc_around_cells()
 
     def mainloop(self):
         """Run main loop game."""
@@ -65,6 +77,8 @@ class Game:
             self.clock.tick(15)
             pygame.display.flip()
 
+        with open('autosave.dat', 'wb') as save_file:
+            pickle.dump(self.board.cells, save_file)
         self.speech.speak(self.phrases['finish'])
         pygame.quit()
 

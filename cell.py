@@ -77,3 +77,11 @@ class Cell:
                 self.textRectObj.center = (self.left+(self.size//2), self.top+(self.size//2))
 
             self.around = cells
+
+    def __getstate__(self):
+        """Return status cell for saving."""
+        return {key: value for key, value in self.__dict__.items() if key != 'around'}
+
+    def __setstate__(self, save_dict):
+        """Set status cell from saving."""
+        self.__dict__.update(save_dict)

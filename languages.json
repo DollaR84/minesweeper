@@ -10,7 +10,9 @@
       "flag": "флаг",
       "empty": "пусто",
       "close": "закрыто",
-      "border": "граница"
+      "border": "граница",
+      "load": "игра загружена",
+      "save": "игра сохранена"
    },
 
    "en":
@@ -23,7 +25,9 @@
       "flag": "flag",
       "empty": "empty",
       "close": "close",
-      "border": "border"
+      "border": "border",
+      "load": "game loaded",
+      "save": "game saved"
    }
 
 }

@@ -63,9 +63,11 @@ class Game:
         else:
             with save_file:
                 self.board.cells = pickle.load(save_file)
+                self.speech.speak(self.phrases['load'])
                 for cell in self.board.cells:
                     cell.status = 0 if 9 != cell.status else cell.status
                 self.board.calc_around_cells()
+                self.player.speak()
 
     def mainloop(self):
         """Run main loop game."""
@@ -79,6 +81,7 @@ class Game:
 
         with open('autosave.dat', 'wb') as save_file:
             pickle.dump(self.board.cells, save_file)
+            self.speech.speak(self.phrases['save'])
         self.speech.speak(self.phrases['finish'])
         pygame.quit()
 

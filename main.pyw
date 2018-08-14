@@ -148,7 +148,7 @@ class Game:
 
     def draw(self):
         """Main draw function."""
-        self.screen.fill(Colors.SILVER)
+        self.screen.fill(Colors.GRAY)
         self.board.draw()
         textSurfaceTimer = self.fontObj.render(self.get_timer(), True, Colors.BLUE)
         textRectTimer = textSurfaceTimer.get_rect()

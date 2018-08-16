@@ -7,7 +7,6 @@ Created on 22.07.2018
 
 """
 
-import json
 import time
 import pickle
 
@@ -34,8 +33,8 @@ class Game:
         self.size_x = self.config.getint('screen', 'size_x')
         self.size_y = self.config.getint('screen', 'size_y')
 
-        with open('languages.json', 'r', encoding='utf8') as json_file:
-            self.phrases = json.load(json_file)[self.config.get('total', 'language')]
+        with open('languages.dat', 'rb') as lang_file:
+            self.phrases = pickle.load(lang_file)[self.config.get('total', 'language')]
 
         self.speech = Speech(self.config)
         self.speech.speak(self.phrases['start'])
@@ -57,7 +56,7 @@ class Game:
 
         self.new_game()
         try:
-            save_file = open('autosave.dat', 'rb')
+            save_file = open('autosave.sav', 'rb')
         except IOError as e:
             pass
         else:
@@ -79,7 +78,7 @@ class Game:
             self.clock.tick(15)
             pygame.display.flip()
 
-        with open('autosave.dat', 'wb') as save_file:
+        with open('autosave.sav', 'wb') as save_file:
             pickle.dump(self.board.cells, save_file)
             self.speech.speak(self.phrases['save'])
         self.speech.speak(self.phrases['finish'])

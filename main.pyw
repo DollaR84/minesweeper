@@ -61,7 +61,9 @@ class Game:
             pass
         else:
             with save_file:
-                self.board.cells = pickle.load(save_file)
+                data = pickle.load(save_file)
+                self.board.cells = data['cells']
+                self.board.find_mines = data['find_mines']
                 self.speech.speak(self.phrases['load'])
                 for cell in self.board.cells:
                     cell.status = 0 if 9 != cell.status else cell.status
@@ -79,7 +81,8 @@ class Game:
             pygame.display.flip()
 
         with open('autosave.sav', 'wb') as save_file:
-            pickle.dump(self.board.cells, save_file)
+            data = {'cells': self.board.cells, 'find_mines': self.board.find_mines}
+            pickle.dump(data, save_file)
             self.speech.speak(self.phrases['save'])
         self.speech.speak(self.phrases['finish'])
         pygame.quit()

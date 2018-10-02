@@ -1,7 +1,7 @@
 Help.
 
-Author: Ruslan Dolovanyuk.
-Version: 1.0.
+Author: Ruslan Dolovanyuk aka DollaR
+Version: 1.1
 
 Keys:
 Escape - exit;

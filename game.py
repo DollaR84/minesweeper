@@ -43,7 +43,7 @@ class Game:
         pygame.font.init()
 
         self.screen = pygame.display.set_mode((self.size_x, self.size_y))
-        pygame.display.set_caption('Сапер')
+        pygame.display.set_caption(self.phrases['title'])
 
         self.board = Board(self.config, self.screen)
         self.player = Player(self.board, self.speech, self.phrases)
@@ -103,6 +103,8 @@ class Game:
                     self.help()
                 elif pygame.K_F5 == event.key:
                     self.new_game()
+                elif pygame.K_F9 == event.key:
+                    self.change_language()
                 elif pygame.K_LEFT == event.key:
                     if not self.game_over:
                         self.player.move(-1, 0)
@@ -189,7 +191,6 @@ class Game:
         minutes = (self.timer // 60) % 60
         hours = (self.timer // 60) // 60
         return '%d:%d:%d' % (hours, minutes, seconds)
-        
 
     def help(self):
         """Speak help for keys control game."""
@@ -199,3 +200,18 @@ class Game:
             for line in [line for line in data if '\n' != line]:
                 self.speech.speak(line)
                 time.sleep(0.1)
+
+    def change_language(self):
+        """Change language for phrases."""
+        if 'ru' == self.config.get('total', 'language'):
+            self.config.set('total', 'language', 'en')
+            with open('languages.dat', 'rb') as lang_file:
+                self.phrases = pickle.load(lang_file)['en']
+        else:
+            self.config.set('total', 'language', 'ru')
+            with open('languages.dat', 'rb') as lang_file:
+                self.phrases = pickle.load(lang_file)['ru']
+        self.player.phrases = self.phrases
+        self.speech.speak(self.phrases['language'])
+        with open('settings.ini', 'w') as config_file:
+            self.config.write(config_file)
